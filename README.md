@@ -39,7 +39,7 @@ The training scripts are implemented in the [experiments folder](experiments).
     data
     ├── extre
     │   ├── scene_info
-    │   └── Basaier0, ...
+    │   └── Basel0, ...
     └── megadepth
         ├── phoenix
         │   └── S6
