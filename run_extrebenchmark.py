@@ -1,3 +1,4 @@
+import argparse
 import immatch
 import yaml
 from tqdm import tqdm
@@ -16,9 +17,15 @@ if __name__ == "__main__":
     os.environ["OPENCV_IO_ENABLE_OPENEXR"] = "1"
     import cv2
 
+    parser = argparse.ArgumentParser(description="AerialExtreMatch Benchmark")
+    parser.add_argument("--model", type=str, default="gim_roma", help="Model name (must match configs/<model>.yml)")
+    parser.add_argument("--data_dir", type=str, default="/media/guan/ZX1/ExeBenchmark/Benchmark", help="Root directory of benchmark data (contains class_0, class_1, ...)")
+    parser.add_argument("--results_dir", type=str, default="/media/guan/ZX1/ExeBenchmark/results", help="Root directory to save results")
+    parser.add_argument("--num_classes", type=int, default=32, help="Number of classes to evaluate")
+    cmd_args = parser.parse_args()
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model_name = "gim_roma"
+model_name = cmd_args.model
 
 
 # Initialize model
@@ -27,24 +34,27 @@ with open(f"configs/{model_name}.yml", "r") as f:
 model = immatch.__dict__[args["class"]](args)
 def matcher(im1, im2): return model.match_pairs(im1, im2)
 
-save_dir = f"/media/guan/ZX1/ExeBenchmark/results/{model_name}/"
+save_dir = os.path.join(cmd_args.results_dir, model_name)
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
-pck_path = f"/media/guan/ZX1/ExeBenchmark/results/{model_name}/pck/"
+pck_path = os.path.join(save_dir, "pck")
 if not os.path.exists(pck_path):
     os.makedirs(pck_path)
-loc_path = f"/media/guan/ZX1/ExeBenchmark/results/{model_name}/loc/"
+loc_path = os.path.join(save_dir, "loc")
 if not os.path.exists(loc_path):
     os.makedirs(loc_path)
-auc_path = f"/media/guan/ZX1/ExeBenchmark/results/{model_name}/auc/"
+auc_path = os.path.join(save_dir, "auc")
 if not os.path.exists(auc_path):
     os.makedirs(auc_path)
 
+pck_path = pck_path + "/"
+loc_path = loc_path + "/"
+auc_path = auc_path + "/"
 
 
 # 数据加载
-for i in tqdm(range(32)):
-    ExtreData = ExtreDataBuilder(data_root=f"/media/guan/ZX1/ExeBenchmark/Benchmark/class_{i}/")
+for i in tqdm(range(cmd_args.num_classes)):
+    ExtreData = ExtreDataBuilder(data_root=os.path.join(cmd_args.data_dir, f"class_{i}"))
     name = f'class_{i}'
     save_path = pck_path + name + '_' + model_name + '.txt'
     loc_txt_path = loc_path + name + '_' + model_name + '.txt'
