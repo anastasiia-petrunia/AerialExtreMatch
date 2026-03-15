@@ -1,11 +1,13 @@
 # AerialExtreMatch: A Benchmark for Extreme-View Image Matching and Localization
-### [Project Page](https://xecades.github.io/AerialExtreMatch/) | Paper (WIP)
+
+### [Project Page](https://xecades.github.io/AerialExtreMatch/) | [Paper](https://ieeexplore.ieee.org/document/11434521)
 
 <br />
 
 > **AerialExtreMatch: A Benchmark for Extreme-View Image Matching and Localization**  
 > [Rouwan Wu<sup>1</sup>](https://github.com/RingoWRW), [Zhe Huang<sup>2</sup>](https://github.com/Xecades), [Xingyi He<sup>2</sup>](https://hxy-123.github.io/), [Yan Liu<sup>3</sup>](https://faculty.hdu.edu.cn/jsjxy/ly2_21682/main.htm), [Shen Yan<sup>1</sup>](https://openreview.net/profile?id=~Shen_Yan6), [Sida Peng<sup>2</sup>](https://pengsida.net/), [Maojun Zhang<sup>1&dagger;</sup>](https://orcid.org/0000-0001-6748-0545), [Xiaowei Zhou<sup>2&dagger;</sup>](https://xzhou.me/)  
-> <sup>1</sup>NUDT, <sup>2</sup>State Key Lab of CAD&CG, ZJU, <sup>3</sup>HUST  
+> <sup>1</sup>NUDT, <sup>2</sup>State Key Lab of CAD&CG, ZJU, <sup>3</sup>HUST
+>
 > <!-- NeurIPS --> 2025
 
 <p align="center">
@@ -14,24 +16,35 @@
     <em>We introduce <b>AerialExtreMatch</b>, a large-scale, high-fidelity benchmark tailored for extreme-view image matching and UAV localization. It consists of three datasets: <b>Train Pair</b>, <b>Evaluation Pair</b>, and <b>Localization</b>. All code and datasets are readily available for public access.</em>
 </p>
 
-> [!WARNING]  
-> Docs are under preparation, and will be released soon.
-
 ## Resources
 
 > [!IMPORTANT]  
 > In our paper, TWO seperate codebases are provided: **benchmarking** and code of our pretrained **RoMa** model.  
 > To increase simplicity and consistency, we slightly abuse the concept of git branches and **make the two codebases as branches of this repository**.
 
- - **Code**
-   - [**`Benchmark` branch**](https://github.com/Xecades/AerialExtreMatch/tree/Benchmark): source code for the benchmark, including feature matching and localization pipelines for models mentioned in the paper. **(WIP)**
-   - [**`RoMa` branch**](https://github.com/Xecades/AerialExtreMatch/tree/RoMa): the code we use to train our RoMa model.
- - **Dataset**
-   - [**AerialExtreMatch-Train**](https://huggingface.co/datasets/Xecades/AerialExtreMatch-Train): corresponds to **Train Pair** set.
-   - [**AerialExtreMatch-Benchmark**](https://huggingface.co/datasets/Xecades/AerialExtreMatch-Benchmark): corresponds to **Evaluation Pair** set.
-   - [**AerialExtreMatch-Localization**](https://huggingface.co/datasets/Xecades/AerialExtreMatch-Localization): corresponds to **Localization** set.
- - **Checkpoints**: see [[Release]](releases).
+- **Code**
+    - [**`Benchmark` branch**](https://github.com/Xecades/AerialExtreMatch/tree/Benchmark): source code for the benchmark, including feature matching and localization pipelines for models mentioned in the paper.
+    - [**`RoMa` branch**](https://github.com/Xecades/AerialExtreMatch/tree/RoMa): the code we use to train our RoMa model.
+- **Dataset**
+    - [**AerialExtreMatch-Train**](https://huggingface.co/datasets/Xecades/AerialExtreMatch-Train): corresponds to **Train Pair** set.
+    - [**AerialExtreMatch-Benchmark**](https://huggingface.co/datasets/Xecades/AerialExtreMatch-Benchmark): corresponds to **Evaluation Pair** set.
+    - [**AerialExtreMatch-Localization**](https://huggingface.co/datasets/Xecades/AerialExtreMatch-Localization): corresponds to **Localization** set.
+- **Checkpoints**: see [[Release]](releases).
 
 ## License
 
 [MIT License](LICENSE)
+
+## Citation
+
+If you find our work useful, please consider citing:
+
+```bibtex
+@article{wu2026aerialextrematch,
+  title   = {AerialExtreMatch: A Benchmark for Extreme-View Image Matching and Localization},
+  author  = {Wu, Rouwan and Huang, Zhe and He, Xingyi and Liu, Yan and Yan, Shen and Peng, Sida and Zhang, Maojun and Zhou, Xiaowei},
+  journal = {IEEE Robotics and Automation Letters},
+  year    = {2026},
+  doi     = {10.1109/LRA.2026.3673915}
+}
+```
