@@ -7,9 +7,9 @@ import torch
 import numpy as np
 from immatch.utils.geometry import warp_kpts
 from immatch.datasets.extredataset import ExtreDataBuilder
-import os
 from immatch.localize.localize import QueryLocalizer
 from immatch.utils.metrics import cal_relapose_auc
+import gc
 
 from immatch.utils.visualize import plot_match_2viewtest
 
@@ -23,6 +23,7 @@ if __name__ == "__main__":
     parser.add_argument("--data_dir", type=str, default="/media/guan/ZX1/ExeBenchmark/Benchmark", help="Root directory of benchmark data (contains class_0, class_1, ...)")
     parser.add_argument("--results_dir", type=str, default="/media/guan/ZX1/ExeBenchmark/results", help="Root directory to save results")
     parser.add_argument("--num_classes", type=int, default=32, help="Number of classes to evaluate")
+    parser.add_argument("--start_class", type=int, default=0, help="Class index to start from")
     cmd_args = parser.parse_args()
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -54,7 +55,7 @@ auc_path = auc_path + "/"
 
 
 # 数据加载
-for i in tqdm(range(cmd_args.num_classes)):
+for i in tqdm(range(cmd_args.start_class, cmd_args.num_classes)):
     ExtreData = ExtreDataBuilder(data_root=os.path.join(cmd_args.data_dir, f"class_{i}"))
     name = f'class_{i}'
     save_path = pck_path + name + '_' + model_name + '.txt'
@@ -181,3 +182,9 @@ for i in tqdm(range(cmd_args.num_classes)):
             info = key + " " + str(result[key]) + "\n"
             f_auc.write(info)
     f_auc.close()
+
+    # MEMORY FLUSH:
+    del ExtreData_test
+    del val_loader
+    torch.cuda.empty_cache()
+    gc.collect()
