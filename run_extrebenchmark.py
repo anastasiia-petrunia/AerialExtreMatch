@@ -76,6 +76,11 @@ for i in tqdm(range(cmd_args.num_classes)):
 
         with open(loc_txt_path, 'w') as f_loc:
             for batch_idx, batch in tqdm(enumerate(val_loader), total=len(val_loader)):
+
+                # --- TEST ---
+                # if batch_idx >= 5:
+                #     break
+                # ----------------------
                 im1, im2 = batch['im_A_path'][0], batch['im_B_path'][0]
                 depth_ref1, depth_ref2 = batch['depth_A_path'][0], batch['depth_B_path'][0]
                 depth1 = cv2.imread(depth_ref1, cv2.IMREAD_UNCHANGED)

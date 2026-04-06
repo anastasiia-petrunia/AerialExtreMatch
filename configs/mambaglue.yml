@@ -1,0 +1,4 @@
+example:
+  class: "MambaGlue"
+  imsize: -1
+  num_keypoints: 2048
