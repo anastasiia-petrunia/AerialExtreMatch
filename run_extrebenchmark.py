@@ -7,6 +7,7 @@ import torch
 import numpy as np
 from immatch.utils.geometry import warp_kpts
 from immatch.datasets.extredataset import ExtreDataBuilder
+import os
 from immatch.localize.localize import QueryLocalizer
 from immatch.utils.metrics import cal_relapose_auc
 
