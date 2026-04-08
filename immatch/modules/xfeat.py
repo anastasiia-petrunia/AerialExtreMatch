@@ -1,15 +1,16 @@
+import torch
 import numpy as np
 
 from .base import Matching
 from immatch.utils.data_io import load_im_tensor
 
 # Use if statement to prevent formatting from corrupting the code
-if True:
-    import sys
-    from pathlib import Path
-    xfeat_path = Path(__file__).parent / "../../third_party/xfeat"
-    sys.path.append(str(xfeat_path))
-    from third_party.xfeat.modules.xfeat import XFeat as _XFeat
+# if True:
+#     import sys
+#     from pathlib import Path
+#     xfeat_path = Path(__file__).parent / "../../third_party/xfeat"
+#     sys.path.append(str(xfeat_path))
+#     from third_party.xfeat.modules.xfeat import XFeat as _XFeat
 
 
 class XFeat(Matching):
@@ -19,7 +20,7 @@ class XFeat(Matching):
         self.imsize = args.get("imsize", -1)
         self.num_keypoints = args.get("num_keypoints", 4096)
 
-        self.model = _XFeat()
+        self.model = torch.hub.load('verlab/accelerated_features', 'XFeat', pretrained = True, top_k = self.num_keypoints)
 
         self.name = "XFeat"
         print(f"Initialize {self.name}")
